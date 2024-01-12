@@ -1,3 +1,5 @@
+import time
+
 from pyModbusTCP.client import ModbusClient
 from enums.epsonInstructions import Instructions
 
@@ -37,8 +39,8 @@ class Epson:
         """
         closes the connection
         """
-        self.reset_all()
         self.c.write_single_coil(Instructions.START_GAME.value, 0)
+        self.reset_all()
         self.c.close()
 
     def write_coordinates(self, coordinates: int, go_camera: bool = False) -> bool:

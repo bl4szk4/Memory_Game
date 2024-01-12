@@ -1,4 +1,6 @@
 import sys
+import time
+
 import pygame
 
 from enums.colors import Colors
@@ -83,11 +85,11 @@ class MemoryGame:
                         pygame.display.update()
                         pygame.time.delay(3000)
                         sys.exit()
-                    pass
+
                 self.is_screen_initialized = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    quit()
+                    self.quit_game()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.menu_screen.button_start.on_focus(self.mouse_pos):
                         self.screen = Screens.INPUT
@@ -110,7 +112,7 @@ class MemoryGame:
             else:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        quit()
+                        self.quit_game()
                     elif event.type == pygame.MOUSEBUTTONDOWN:
                         # clicked
                         self.mouse_pos = pygame.mouse.get_pos()
@@ -145,7 +147,7 @@ class MemoryGame:
                 self.is_screen_initialized = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    quit()
+                    self.quit_game()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.input_screen.button_ok.on_focus(self.mouse_pos):
                         if len(self.input_screen.user_input) != 0:
@@ -180,7 +182,7 @@ class MemoryGame:
                 self.is_screen_initialized = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    quit()
+                    self.quit_game()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # difficulties
                     if self.settings_screen.button_easy.on_focus(mouse=self.mouse_pos):
@@ -243,7 +245,7 @@ class MemoryGame:
                 if self.state_of_turn == 2:
                     self.ai_turn()
 
-    def quit(self):
+    def quit_game(self):
         """Quits the game"""
         self.robot.close_connection()
         self.camera.stop_camera()
